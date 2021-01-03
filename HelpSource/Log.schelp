@@ -1,0 +1,81 @@
+TITLE:: PostLog
+summary:: log and/or post messages to a file
+categories:: Utilities
+related:: Classes/PostOffice
+
+DESCRIPTION::
+
+
+First code examples:
+
+code::
+
+// start logging - all posts go into a log file now
+PostLog.start;
+
+// by default, posts are written to log file:
+1 + 2;
+"yo mama has a post message!";
+// log everything that gets posted?
+PostLog.logPosts;
+// turn logging of posts off
+PostLog.logPosts = false;
+
+// open current log file if there is one:
+PostLog.open;
+
+// write explicitly to logfile when open:
+PostLog.write("test log, 1 2 3");
+
+// is logging on now?
+PostLog.on;
+
+PostLog.stop;
+
+(
+Tdef('x', {
+	PostLog.start;
+	PostLog.logPosts = false;
+	10.do {
+		"yo mama has a post message!".scramble.postln;
+		PostLog.write("just log, dont post!");
+		0.5.wait;
+	};
+	PostLog.open;
+	PostLog.stop;
+
+}).play;
+)
+
+::
+
+CLASSMETHODS::
+
+private::initClass, checkLogDir, writeIfOpen
+private:: appAsDir, appDir, appName
+private:: doOnShutDown
+
+METHOD:: start, stop
+start, stop logging
+METHOD:: open
+open log file (if there is one)
+METHOD:: openDir
+open log folder
+
+METHOD:: on
+flag whether logging now
+METHOD:: logPosts
+flag whether to log all post messages
+
+METHOD:: tracing
+flag whether tracing now
+- tracing means also post all log-ony messages
+
+METHOD:: write
+write a string directly to the log (if on)
+
+METHOD:: dirPath
+METHOD:: filePath
+METHOD:: file
+
+

@@ -1,0 +1,63 @@
+
+TITLE:: PostOffice
+summary:: customize handling of post messages
+categories:: Utilities
+related:: Classes/Post, Classes/Log
+
+DESCRIPTION::
+PostOffice redirects posting and allows:
+- keeping posted lines, and
+- adding a function to run for every post message.
+
+First code examples:
+
+code::
+PostOffice.lines; // empty
+Log.start;
+PostOffice.addLines = true;
+
+1 + 2;
+PostOffice.lines.size; // how many?
+PostOffice.lines; // post them - this will become a line too
+PostOffice.clear; // clear lines
+
+PostOffice.addLines = false;
+
+t = TextView().name_("PostOffice").front;
+
+PostOffice.postfunc = { |msg|
+	PostOffice.lines.keep(-3).join;
+	t.string = msg;
+	(dur: 0.1, note: msg.size % 48).play;
+};
+
+"whatever";
+"whatever else?";
+"whatever else? higher notes?";
+"";
+
+PostOffice.postfunc = { |msg|
+	t.string = PostOffice.lines.keep(-3).join;
+	(dur: 0.1, note: msg.size % 48).play;
+};
+
+_some_example_code_
+::
+
+CLASSMETHODS::
+
+private:: initClass
+
+METHOD:: lines
+the current list of stored post lines
+
+METHOD:: clear
+clear list of stored post lines
+
+METHOD:: postfunc
+a function to run when a post comes in
+
+METHOD:: add
+add a string / post message to lines
+
+INSTANCEMETHODS::
