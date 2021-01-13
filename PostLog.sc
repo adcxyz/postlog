@@ -50,9 +50,9 @@ PostLog {
 
 	*open {
 		if (filePath.notNil) {
-			Log.filePath.openOS
+			filePath.openOS
 		} {
-			"Log: no filePath, cannot open file.".postln;
+			"%: no filePath, cannot open file.".postf(this);
 		}
 	}
 
